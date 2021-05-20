@@ -12,10 +12,17 @@ CLASS DB{
         }  
         // Catch any errors  
         catch(PDOException $e){  
-            return error_and_die("Datenbankverbindung Fehlgeschlagen \n",$e);
+            return error_and_die("DB connection error \n",$e);
         }  
     }
-    #db insert
+    
+    
+    /**
+     * Insert row to table
+     *
+     * @param string $table
+     * @param array $data
+     */
     public function insert($table, $data)
     {
         $setPart = array();
@@ -36,7 +43,13 @@ CLASS DB{
 
     }
 
-    #db update
+    /**
+     * Update row in table
+     *
+     * @param string $table
+     * @param array $data
+     * @param integer $id
+     */
     public function update ($table, $data, $id)
     {
         $setPart = array();
@@ -65,7 +78,12 @@ CLASS DB{
 
     }
 
-    #db delete
+    /**
+     * Delete row from table
+     *
+     * @param string $table
+     * @param integer $id
+     */
     public function delete ($table, $id)
     {
         $bindings = array();
@@ -86,7 +104,11 @@ CLASS DB{
         }
     }
 
-    #fetch all
+    /**
+     * Fetch all rows from table
+     *
+     * @param integer $id
+     */
     function fetch_all($table){
 
         $data = array();
@@ -100,7 +122,12 @@ CLASS DB{
         return $data;
     }
 
-    #fetch id
+    /**
+     * Fetch row from table by id
+     *
+     * @param string $table
+     * @param integer $id
+     */
     function fetch_id($table,$id){
 
         $data = array();
@@ -121,7 +148,14 @@ CLASS DB{
         
     }
 
-    #free query
+    /**
+     * Custom query
+     *
+     * @param string $what
+     * @param string $table
+     * @param array $where
+     * @param string $append
+     */
     public function query($what, $table, $where, $append =''){
 
         $setPart = array();
@@ -141,7 +175,14 @@ CLASS DB{
         return $data;
     }
 
-    #free query like
+    /**
+     * Custom query with like
+     *
+     * @param string $what
+     * @param string $table
+     * @param array $where
+     * @param string $append
+     */
     public function query_like($what, $table, $where, $append =''){
 
         $setPart = array();
