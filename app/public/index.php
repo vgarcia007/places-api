@@ -1,7 +1,4 @@
 <?php 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 date_default_timezone_set(getenv('TZ'));
 setlocale (LC_TIME, "de_DE");
 set_include_path('/var/www/private');
@@ -9,19 +6,15 @@ set_include_path('/var/www/private');
 session_start();
 
 require_once('config.php');
+
+if(APP_DEBUG == 'on'){
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+}
+
 require_once('classes/db.php');
 require_once('classes/AltoRouter.php');
 
-
-
-function send_error($number,$redirect='none'){
-    header('HTTP/1.0 '.$number.' Forbidden');
-    if ($redirect !== 'none') {
-        header("Location: /".$redirect);
-    }
-    die();
-
-}
 
 function error_and_die($message,$e){
     echo 'Datenbankverbindung Fehlgeschlagen '."\n";
@@ -47,15 +40,11 @@ function echo_json_db_data($data){
 
 }
 
-
 # ROUTER
 #=========================================================
-#
-
 
 $router = new AltoRouter();
 $router->addMatchTypes(array('char' => '(?:[^\/]*)'));
-#$router->setBasePath('/');
 
 /*
 * setup
@@ -89,7 +78,7 @@ $router->map( 'GET', '/zip_code/[i:query]', function( $query ) {
 });
 
 /*
-* ort
+* ags
 */
 $router->map( 'GET', '/ags/[char:query]', function( $query ) {
     $db = NEW DB;

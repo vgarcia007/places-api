@@ -11,11 +11,11 @@ services:
         environment:
             TZ: "Europe/Berlin"
             DB_DSN: 'mysql:host=mariadb;dbname=app;charset=utf8mb4'
-            DB_USER: appdbuser
-            DB_PASSWORD: CsnaCeRM%$e2 #CHANGE
-            APP_DEBUG: 'on' # off or on
-            APP_SECRET: fJvLacf5aRNtYZkb7pX4 #CHANGE
-            APP_DOMAIN: "https://places-api.rosenheim.dev/" #CHANGE
+            DB_USER: 'appdbuser'
+            DB_PASSWORD: 'putHQuARchro' #CHANGE
+            APP_DEBUG: 'off' # off or on
+            APP_SECRET: 'rENspePaRGeRYpAcAraGER' #CHANGE
+            APP_DOMAIN: 'https://places-api.example.com/' #CHANGE
         links:
             - 'mariadb'
         dns:
@@ -27,11 +27,11 @@ services:
         volumes:
             - mariadb:/var/lib/mysql
         environment:
-            TZ: "Europe/Berlin"
-            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "rootpwd" #CHANGE
+            TZ: 'Europe/Berlin'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+            MYSQL_ROOT_PASSWORD: 'UitYpeRAtEme' #CHANGE
             MYSQL_USER: 'appdbuser'
-            MYSQL_PASSWORD: 'CsnaCeRM%$e2' #CHANGE
+            MYSQL_PASSWORD: 'putHQuARchro' #CHANGE
             MYSQL_DATABASE: 'app'
 
 volumes:

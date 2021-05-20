@@ -1,73 +1,17 @@
 <?php
-header('Content-Type: application/json');
-
 require_once('classes/db.php');
 
-
-$retrun=array();
-
 $DB = new DB;
+$DB->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
+$places_data = file_get_contents('/var/www/private/data/places.sql');
+$DB->pdo->exec($places_data);
 
-$TABLE_OPTIONS = '
-CHARACTER SET utf8mb4 
-COLLATE utf8mb4_unicode_ci
-ENGINE=INNODB';
+$all = $DB->fetch_all('places');
 
-$TABLES['APP'] = '
-CREATE TABLE IF NOT EXISTS app (
-id INT AUTO_INCREMENT PRIMARY KEY,
-firstrun VARCHAR(30) NOT NULL,
-reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)' . $TABLE_OPTIONS;
+$return = array(
+  'message' => 'imported '. count($all) . ' places'
+);
 
+echo_json_array($return);
 
-$TABLES['places'] = '
-CREATE TABLE IF NOT EXISTS places (
-id INT AUTO_INCREMENT PRIMARY KEY,
-osm_id INT NOT NULL,
-ags INT NOT NULL,
-place VARCHAR(255),
-zip INT NOT NULL,
-district VARCHAR(255),
-state VARCHAR(255)
-)' . $TABLE_OPTIONS;
-
-
-foreach ($TABLES as $key => $TABLE) {
-  $sth = $DB->pdo->prepare($TABLE);
-  $sth->execute();
-  $sql_errors = $sth->errorInfo();
-    
-}
-
-if (APP_DEBUG == 'on') {
-  $retrun['errinfo'][$key] = $sql_errors;
-}
-
-//check if setup runs the first time
-
-$retrun['firstrun']=true;
-
-$app_settings = $DB->fetch_id('app',1);
-
-if ( isset($app_settings['firstrun']) ) {
-  if($app_settings['firstrun'] == 'completed'){
-    $retrun['firstrun']=false;
-  }
-}
-
-if ($retrun['firstrun'] == true) {
-
-
-  $data = [
-    'firstrun' => 'completed'
-    ];
-
-  $DB->insert('app',$data);
-  unset($data);
-
-
-}
-
-print_r(json_encode($retrun, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 ?>
