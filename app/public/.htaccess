@@ -1,0 +1,7 @@
+php_value upload_max_filesize 5M
+RewriteEngine On
+RewriteOptions inherit
+#Everything to index.php for routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
