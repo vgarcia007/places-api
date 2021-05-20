@@ -1,0 +1,38 @@
+version: '3'
+services:
+    php-apache:
+        image: webapp
+        container_name: places-api.php #CHANGE
+        ports:
+            - 5013:80 #CHANGE dont forget in proxy conf!
+        volumes:
+            - ./app/public:/var/www/html:z
+            - ./app/private:/var/www/private:z
+        environment:
+            TZ: "Europe/Berlin"
+            DB_DSN: 'mysql:host=mariadb;dbname=app;charset=utf8mb4'
+            DB_USER: appdbuser
+            DB_PASSWORD: CsnaCeRM%$e2 #CHANGE
+            APP_DEBUG: 'on' # off or on
+            APP_SECRET: fJvLacf5aRNtYZkb7pX4 #CHANGE
+            APP_DOMAIN: "https://places-api.rosenheim.dev/" #CHANGE
+        links:
+            - 'mariadb'
+        dns:
+            - "8.8.8.8"
+
+    mariadb:
+        image: mariadb:10.1
+        container_name: places-api.mysql #CHANGE
+        volumes:
+            - mariadb:/var/lib/mysql
+        environment:
+            TZ: "Europe/Berlin"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "rootpwd" #CHANGE
+            MYSQL_USER: 'appdbuser'
+            MYSQL_PASSWORD: 'CsnaCeRM%$e2' #CHANGE
+            MYSQL_DATABASE: 'app'
+
+volumes:
+    mariadb:
