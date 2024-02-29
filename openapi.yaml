@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Places API Documentation
+  description: Provides information for places including osm_id, ags, ort, plz, landkreis, bundesland.
+  version: 1.0.0
+
+servers:
+  - url: "https://places-api.rosenheim.dev"
+
+paths:
+  /osm_id/{query}:
+    get:
+      summary: Get information by osm_id
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The osm_id to query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
+
+  /zip_code/{query}:
+    get:
+      summary: Get information by zip code
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The zip code to query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
+
+  /ags/{query}:
+    get:
+      summary: Get information by Amtlicher Gemeindeschlüssel
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The Amtlicher Gemeindeschlüssel to query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
+  
+  /ags-search/{query}:
+    get:
+      summary: Get information by part of Amtlicher Gemeindeschlüssel
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The part of Amtlicher Gemeindeschlüssel to query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
+
+  /place/{query}:
+    get:
+      summary: Get information by Place
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The Place to query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
+
+  /place-search/{query}:
+    get:
+      summary: Get information by part of Place
+      parameters:
+        - name: query
+          in: path
+          required: true
+          description: The part of Place to query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "osm_id": "2186917",
+                    "ags": "09187124",
+                    "ort": "Edling",
+                    "plz": "83533",
+                    "landkreis": "Landkreis Rosenheim",
+                    "bundesland": "Bayern"
+                  }
+                ]
